@@ -2,15 +2,18 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// Everything in Flutter is a widget
 void main() {
   runApp(MyApp());
 }
 
+// MyApp is the top-level widget
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // ChangeNotifierProvider allows widgets to listen for changes in MyAppState
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
@@ -30,6 +33,7 @@ class MyAppState extends ChangeNotifier {
   // added this
   void getNext() {
     current = WordPair.random();
+    //triggers rebuilds in widgets watching this state
     notifyListeners();
   }
 
@@ -45,6 +49,7 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
+// Don't want to clutter appState with UI-only state like navigation
 class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -67,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
+    // provides basic material design layout structure
     return Scaffold(
       body: Row(
         children: [
@@ -103,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// Good practice to extract important parts of app into their own widgets
 class GeneratorPage extends StatefulWidget {
   @override
   State<GeneratorPage> createState() => _GeneratorPageState();
@@ -152,6 +159,7 @@ class _GeneratorPageState extends State<GeneratorPage> {
   }
 }
 
+// Stateless widget - doesn't change itself, just displays what it's given
 class BigCard extends StatelessWidget {
   const BigCard({super.key, required this.pair});
 
